@@ -1,17 +1,19 @@
-TITLE Project5     (Proj5_zamoraab.asm)
+TITLE Project5_zamoraab     (Proj5_zamoraab.asm)
 
 ; Author: Abraham Zamora
-; Last Modified: 3/4/2026
+; Last Modified: 3/5/2026
 ; OSU email address: zamoraab@oregonstate.edu
 ; Course number/section:   CS271 Section 400
-; Project Number:                 Due Date: 3/5/2023
+; Project Number: Project Number 5                Due Date: 3/5/2023
 ; Description: Program generates values into an array, then sorts the array,
-;	provide the median, and counts the instances of each number in the array.
+;	provides the median, and counts the instances of each number in the array.
+;	Size of array and low and high values are constants, and program accounts for any changes
+;	to these constants.
 
 INCLUDE Irvine32.inc
 
 
-; Program constants
+	; Program constants
 
 	ARRAYSIZE = 200		; set ARRAYSIZE. Initially set to 200 but can be adjusted.
 	LO = 15				; set LO for lowest value
@@ -20,22 +22,22 @@ INCLUDE Irvine32.inc
 
 .data
 	; string variables
-	progName	BYTE	"Generating, Sorting, and Counting Random Integers! Programmed by Abraham Zamora",13,10,0
+	progName	BYTE	"Generating, Sorting, and Counting Random Integers! Programmed by Abraham Zamora",0
 	progDesc	BYTE	"This program generates 200 random integers between 15 and 50, inclusive.",13,10,
 						"It then displays the original list, sorts the list, displays the median value",13,10,
 						"of the list, displays the list sorted in ascending order, and finally displays",13,10,
-						"the number offset instances offset each generated value, starting with the",13,10,
+						"the number of instances of each generated value, starting with the",13,10,
 						"lowest number.",0
 
 	unsortNo	BYTE	"Your unsorted random numbers:",0
-	median		BYTE	"The median value offset the array: ",0
+	median		BYTE	"The median value of the array: ",0
 	sortNum		BYTE	"Your sorted random numbers:",0
-	instance	BYTE	"Your list offset instances of each generated number, starting with the smallest value:",0
+	instance	BYTE	"Your list of instances of each generated number, starting with the smallest value:",0
 	outro		BYTE	"Goodbye, and thanks for using my program!",0
-	spacing		BYTE	"   ",0
+	spacing		BYTE	"  ",0
 
 
-	; dword variables
+	; additional variables
 	randArray	DWORD	ARRAYSIZE DUP(?)	; array that will store randomnly generated values, with a size based on ARRAYSIZE
 	counts		DWORD	HI-LO + 1 DUP(0)	; array that will store the count of each number
 	array		DWORD	LENGTHOF randArray	; length of the randArray
@@ -130,6 +132,7 @@ introduction PROC
 	; display progName and progDesc
 	CALL	WriteString
 	CALL	CrLF
+	call	CrLf
 	MOV		EDX, [EBP+8]
 	CALL	WriteString
 	CALL	CrLf
@@ -292,7 +295,7 @@ exchangeElements ENDP
 ;
 ; Postconditions: NONE
 ;
-; Receives: randArray and median  by reference
+; Receives: randArray and median variable by reference
 ;
 ; Returns: Nothing.
 ;
@@ -433,9 +436,9 @@ displayList ENDP
 ;
 ; Postconditions: None
 ;
-; Receives: randArray 
+; Receives: randArray and counts array (blank for now) by reference
 ;
-; Returns: counts array
+; Returns: counts array with count of instance per number in original randArray
 ;
 ;-------------------------------------------
 countList PROC

@@ -1,16 +1,18 @@
-Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
-!Project5     (Proj5_zamoraab.asm			     Page 1 - 1
+Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 13:43:40
+*Project5_zamoraab     (Proj5_zamoraab.asm		     Page 1 - 1
 
 
-				TITLE Project5     (Proj5_zamoraab.asm)
+				TITLE Project5_zamoraab     (Proj5_zamoraab.asm)
 
 				; Author: Abraham Zamora
-				; Last Modified: 3/4/2026
+				; Last Modified: 3/5/2026
 				; OSU email address: zamoraab@oregonstate.edu
 				; Course number/section:   CS271 Section 400
-				; Project Number:                 Due Date: 3/5/2023
+				; Project Number: Project Number 5                Due Date: 3/5/2023
 				; Description: Program generates values into an array, then sorts the array,
-				;	provide the median, and counts the instances of each number in the array.
+				;	provides the median, and counts the instances of each number in the array.
+				;	Size of array and low and high values are constants, and program accounts for any changes
+				;	to these constants.
 
 				INCLUDE Irvine32.inc
 			      C ; Include file for Irvine32.lib             (Irvine32.inc)
@@ -32,7 +34,7 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 			      C 
 
 
-				; Program constants
+					; Program constants
 
  = 000000C8				ARRAYSIZE = 200		; set ARRAYSIZE. Initially set to 200 but can be adjusted.
  = 0000000F				LO = 15				; set LO for lowest value
@@ -41,7 +43,7 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 
  00000000			.data
 					; string variables
- 00000000 47 65 6E 65 72		progName	BYTE	"Generating, Sorting, and Counting Random Integers! Programmed by Abraham Zamora",13,10,0
+ 00000000 47 65 6E 65 72		progName	BYTE	"Generating, Sorting, and Counting Random Integers! Programmed by Abraham Zamora",0
 	   61 74 69 6E 67
 	   2C 20 53 6F 72
 	   74 69 6E 67 2C
@@ -56,9 +58,8 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 	   64 20 62 79 20
 	   41 62 72 61 68
 	   61 6D 20 5A 61
-	   6D 6F 72 61 0D
-	   0A 00
- 00000052 54 68 69 73 20		progDesc	BYTE	"This program generates 200 random integers between 15 and 50, inclusive.",13,10,
+	   6D 6F 72 61 00
+ 00000050 54 68 69 73 20		progDesc	BYTE	"This program generates 200 random integers between 15 and 50, inclusive.",13,10,
 	   70 72 6F 67 72
 	   61 6D 20 67 65
 	   6E 65 72 61 74
@@ -107,66 +108,63 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 	   73 0D 0A 74 68
 	   65 20 6E 75 6D
 	   62 65 72 20 6F
-	   66 66 73 65 74
-	   20 69 6E 73 74
-	   61 6E 63 65 73
-	   20 6F 66 66 73
-	   65 74 20 65 61
-	   63 68 20 67 65
-	   6E 65 72 61 74
-	   65 64 20 76 61
-	   6C 75 65 2C 20
-	   73 74 61 72 74
-	   69 6E 67 20 77
-	   69 74 68 20 74
-	   68 65 0D 0A 6C
-	   6F 77 65 73 74
-	   20 6E 75 6D 62
-	   65 72 2E 00
-										"It then displays the original list, sorts the list, displays the median value",13,10,
-										"of the list, displays the list sorted in ascending order, and finally displays",13,10,
-										"the number offset instances offset each generated value, starting with the",13,10,
-										"lowest number.",0
-
- 00000196 59 6F 75 72 20		unsortNo	BYTE	"Your unsorted random numbers:",0
-	   75 6E 73 6F 72
-	   74 65 64 20 72
-	   61 6E 64 6F 6D
-	   20 6E 75 6D 62
-	   65 72 73 3A 00
- 000001B4 54 68 65 20 6D		median		BYTE	"The median value offset the array: ",0
-	   65 64 69 61 6E
-	   20 76 61 6C 75
-	   65 20 6F 66 66
-	   73 65 74 20 74
-	   68 65 20 61 72
-	   72 61 79 3A 20
-	   00
- 000001D8 59 6F 75 72 20		sortNum		BYTE	"Your sorted random numbers:",0
-	   73 6F 72 74 65
-	   64 20 72 61 6E
-	   64 6F 6D 20 6E
-	   75 6D 62 65 72
-	   73 3A 00
- 000001F4 59 6F 75 72 20		instance	BYTE	"Your list offset instances of each generated number, starting with the smallest value:",0
-	   6C 69 73 74 20
-	   6F 66 66 73 65
-	   74 20 69 6E 73
+	   66 20 69 6E 73
 	   74 61 6E 63 65
 	   73 20 6F 66 20
 	   65 61 63 68 20
 	   67 65 6E 65 72
 	   61 74 65 64 20
-	   6E 75 6D 62 65
-	   72 2C 20 73 74
-	   61 72 74 69 6E
-	   67 20 77 69 74
-	   68 20 74 68 65
-	   20 73 6D 61 6C
-	   6C 65 73 74 20
 	   76 61 6C 75 65
-	   3A 00
- 0000024B 47 6F 6F 64 62		outro		BYTE	"Goodbye, and thanks for using my program!",0
+	   2C 20 73 74 61
+	   72 74 69 6E 67
+	   20 77 69 74 68
+	   20 74 68 65 0D
+	   0A 6C 6F 77 65
+	   73 74 20 6E 75
+	   6D 62 65 72 2E
+	   00
+										"It then displays the original list, sorts the list, displays the median value",13,10,
+										"of the list, displays the list sorted in ascending order, and finally displays",13,10,
+										"the number of instances of each generated value, starting with the",13,10,
+										"lowest number.",0
+
+ 0000018C 59 6F 75 72 20		unsortNo	BYTE	"Your unsorted random numbers:",0
+	   75 6E 73 6F 72
+	   74 65 64 20 72
+	   61 6E 64 6F 6D
+	   20 6E 75 6D 62
+	   65 72 73 3A 00
+ 000001AA 54 68 65 20 6D		median		BYTE	"The median value of the array: ",0
+	   65 64 69 61 6E
+	   20 76 61 6C 75
+	   65 20 6F 66 20
+	   74 68 65 20 61
+	   72 72 61 79 3A
+	   20 00
+ 000001CA 59 6F 75 72 20		sortNum		BYTE	"Your sorted random numbers:",0
+	   73 6F 72 74 65
+	   64 20 72 61 6E
+	   64 6F 6D 20 6E
+	   75 6D 62 65 72
+	   73 3A 00
+ 000001E6 59 6F 75 72 20		instance	BYTE	"Your list of instances of each generated number, starting with the smallest value:",0
+	   6C 69 73 74 20
+	   6F 66 20 69 6E
+	   73 74 61 6E 63
+	   65 73 20 6F 66
+	   20 65 61 63 68
+	   20 67 65 6E 65
+	   72 61 74 65 64
+	   20 6E 75 6D 62
+	   65 72 2C 20 73
+	   74 61 72 74 69
+	   6E 67 20 77 69
+	   74 68 20 74 68
+	   65 20 73 6D 61
+	   6C 6C 65 73 74
+	   20 76 61 6C 75
+	   65 3A 00
+ 00000239 47 6F 6F 64 62		outro		BYTE	"Goodbye, and thanks for using my program!",0
 	   79 65 2C 20 61
 	   6E 64 20 74 68
 	   61 6E 6B 73 20
@@ -175,18 +173,18 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 	   6D 79 20 70 72
 	   6F 67 72 61 6D
 	   21 00
- 00000275 20 20 20 00			spacing		BYTE	"   ",0
+ 00000263 20 20 00			spacing		BYTE	"  ",0
 
 
-					; dword variables
- 00000279  000000C8 [			randArray	DWORD	ARRAYSIZE DUP(?)	; array that will store randomnly generated values, with a size based on ARRAYSIZE
+					; additional variables
+ 00000266  000000C8 [			randArray	DWORD	ARRAYSIZE DUP(?)	; array that will store randomnly generated values, with a size based on ARRAYSIZE
 	    00000000
 	   ]
- 00000599  00000024 [			counts		DWORD	HI-LO + 1 DUP(0)	; array that will store the count of each number
+ 00000586  00000024 [			counts		DWORD	HI-LO + 1 DUP(0)	; array that will store the count of each number
 	    00000000
 	   ]
- 00000629 000000C8			array		DWORD	LENGTHOF randArray	; length of the randArray
- 0000062D 00000024			countsLen	DWORD	LENGTHOF counts		; length of the counts array
+ 00000616 000000C8			array		DWORD	LENGTHOF randArray	; length of the randArray
+ 0000061A 00000024			countsLen	DWORD	LENGTHOF counts		; length of the counts array
 					
 
 
@@ -201,51 +199,51 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 
 					; call introduction to the program
  00000005  68 00000000 R		PUSH OFFSET progName
- 0000000A  68 00000052 R		PUSH OFFSET	progDesc
+ 0000000A  68 00000050 R		PUSH OFFSET	progDesc
  0000000F  E8 00000091			call introduction
 
 					; call the fillArray procedure that will generate numbers and fill an array
- 00000014  68 00000279 R		PUSH OFFSET	randArray
- 00000019  E8 000000AF			call fillArray
+ 00000014  68 00000266 R		PUSH OFFSET	randArray
+ 00000019  E8 000000B4			call fillArray
 
 					; call displayList to print the numbers in the array
- 0000001E  FF 35 00000629 R		PUSH array
- 00000024  68 00000279 R		PUSH OFFSET randArray
- 00000029  68 00000275 R		PUSH OFFSET	spacing
- 0000002E  68 00000196 R		PUSH OFFSET unsortNo
- 00000033  E8 0000016C			CALL displayList
+ 0000001E  FF 35 00000616 R		PUSH array
+ 00000024  68 00000266 R		PUSH OFFSET randArray
+ 00000029  68 00000263 R		PUSH OFFSET	spacing
+ 0000002E  68 0000018C R		PUSH OFFSET unsortNo
+ 00000033  E8 00000171			CALL displayList
 
 					; call sortList and sort the array in ascending order 
- 00000038  68 00000279 R		PUSH OFFSET randArray
- 0000003D  E8 000000B8			call sortList
+ 00000038  68 00000266 R		PUSH OFFSET randArray
+ 0000003D  E8 000000BD			call sortList
 
 					; call displayMedian to show the median number in the array
- 00000042  68 00000279 R		PUSH OFFSET randArray
- 00000047  68 000001B4 R		PUSH OFFSET median
- 0000004C  E8 000000F4			call displayMedian
+ 00000042  68 00000266 R		PUSH OFFSET randArray
+ 00000047  68 000001AA R		PUSH OFFSET median
+ 0000004C  E8 000000F9			call displayMedian
 
 					; call sortList again in order to show the new sorted array
- 00000051  FF 35 00000629 R		PUSH array
- 00000057  68 00000279 R		push OFFSET randArray
- 0000005C  68 00000275 R		push OFFSET spacing
- 00000061  68 000001D8 R		push OFFSET sortNum
- 00000066  E8 00000139			call displayList 
+ 00000051  FF 35 00000616 R		PUSH array
+ 00000057  68 00000266 R		push OFFSET randArray
+ 0000005C  68 00000263 R		push OFFSET spacing
+ 00000061  68 000001CA R		push OFFSET sortNum
+ 00000066  E8 0000013E			call displayList 
 
 					;call countList to count the instance of each number
- 0000006B  68 00000599 R		PUSH OFFSET counts
- 00000070  68 00000279 R		push OFFSET randArray
- 00000075  E8 00000181			call countList
+ 0000006B  68 00000586 R		PUSH OFFSET counts
+ 00000070  68 00000266 R		push OFFSET randArray
+ 00000075  E8 00000186			call countList
 
 					; call displayList one more time to show the instance of each number
- 0000007A  FF 35 0000062D R		push countsLen
- 00000080  68 00000599 R		push OFFSET counts
- 00000085  68 00000275 R		push OFFSET spacing
- 0000008A  68 000001F4 R		push OFFSET instance
- 0000008F  E8 00000110			call displayList
+ 0000007A  FF 35 0000061A R		push countsLen
+ 00000080  68 00000586 R		push OFFSET counts
+ 00000085  68 00000263 R		push OFFSET spacing
+ 0000008A  68 000001E6 R		push OFFSET instance
+ 0000008F  E8 00000115			call displayList
 
 					; call the outroMessage to show departing message and close program
- 00000094  68 0000024B R		push OFFSET	outro
- 00000099  E8 00000195			CALL outroMessage
+ 00000094  68 00000239 R		push OFFSET	outro
+ 00000099  E8 0000019A			CALL outroMessage
 
 					Invoke ExitProcess,0	; exit to operating system
  0000009E  6A 00	   *	    push   +000000000h
@@ -279,17 +277,18 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 					; display progName and progDesc
  000000AC  E8 00000000 E		CALL	WriteString
  000000B1  E8 00000000 E		CALL	CrLF
- 000000B6  8B 55 08			MOV		EDX, [EBP+8]
- 000000B9  E8 00000000 E		CALL	WriteString
- 000000BE  E8 00000000 E		CALL	CrLf
+ 000000B6  E8 00000000 E		call	CrLf
+ 000000BB  8B 55 08			MOV		EDX, [EBP+8]
+ 000000BE  E8 00000000 E		CALL	WriteString
  000000C3  E8 00000000 E		CALL	CrLf
+ 000000C8  E8 00000000 E		CALL	CrLf
 
 					; pop edx and ebp registers off the stack
- 000000C8  5A				POP		EDX
- 000000C9  5D				POP		EBP
- 000000CA  C2 0008			RET		8
+ 000000CD  5A				POP		EDX
+ 000000CE  5D				POP		EBP
+ 000000CF  C2 0008			RET		8
 
- 000000CD			introduction ENDP
+ 000000D2			introduction ENDP
 
 				;-----------------------------------------------
 				; Name: fillArray
@@ -307,35 +306,35 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				;------------------------------------------------
 
- 000000CD			fillArray PROC
+ 000000D2			fillArray PROC
 					; push registers to stack
- 000000CD  55				PUSH	EBP
- 000000CE  8B EC			MOV		EBP, ESP
- 000000D0  50				PUSH	EAX
- 000000D1  51				PUSH	ECX
- 000000D2  57				PUSH	EDI
- 000000D3  B9 000000C8			MOV		ECX, ARRAYSIZE
- 000000D8  8B 7D 08			MOV		EDI, [EBP + 8]
+ 000000D2  55				PUSH	EBP
+ 000000D3  8B EC			MOV		EBP, ESP
+ 000000D5  50				PUSH	EAX
+ 000000D6  51				PUSH	ECX
+ 000000D7  57				PUSH	EDI
+ 000000D8  B9 000000C8			MOV		ECX, ARRAYSIZE
+ 000000DD  8B 7D 08			MOV		EDI, [EBP + 8]
 
 				; fill will subtract LO from HI, add 1, and then generate a random number
- 000000DB			_fill:
- 000000DB  B8 00000032			MOV		EAX, HI
- 000000E0  83 E8 0F			SUB		EAX, LO		; subtract LO from HI
- 000000E3  40				INC		EAX			; add 1
- 000000E4  E8 00000000 E		CALL	RandomRange	; RandomRange will generate random numbers
- 000000E9  83 C0 0F			ADD		EAX, LO		; add LO to this random number to get a number between LO and HI
- 000000EC  89 07			MOV		[EDI], EAX
- 000000EE  83 C7 04			ADD		EDI, 4
- 000000F1  E2 E8			loop	_fill
+ 000000E0			_fill:
+ 000000E0  B8 00000032			MOV		EAX, HI
+ 000000E5  83 E8 0F			SUB		EAX, LO		; subtract LO from HI
+ 000000E8  40				INC		EAX			; add 1
+ 000000E9  E8 00000000 E		CALL	RandomRange	; RandomRange will generate random numbers
+ 000000EE  83 C0 0F			ADD		EAX, LO		; add LO to this random number to get a number between LO and HI
+ 000000F1  89 07			MOV		[EDI], EAX
+ 000000F3  83 C7 04			ADD		EDI, 4
+ 000000F6  E2 E8			loop	_fill
 
 					; pop registers from stack and return
- 000000F3  5F				POP		EDI
- 000000F4  59				POP		ECX
- 000000F5  58				POP		EAX
- 000000F6  5D				POP		EBP
- 000000F7  C2 0004			RET		4
+ 000000F8  5F				POP		EDI
+ 000000F9  59				POP		ECX
+ 000000FA  58				POP		EAX
+ 000000FB  5D				POP		EBP
+ 000000FC  C2 0004			RET		4
 
- 000000FA			fillArray ENDP
+ 000000FF			fillArray ENDP
 
 				;----------------------------------------------
 				; Name: sortList
@@ -353,49 +352,49 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				;----------------------------------------------
 
- 000000FA			sortList PROC
+ 000000FF			sortList PROC
 
 					; push registers onto stack
- 000000FA  55				PUSH	EBP
- 000000FB  8B EC			MOV		EBP, ESP
- 000000FD  56				PUSH	ESI
- 000000FE  51				PUSH	ECX
- 000000FF  52				PUSH	EDX
+ 000000FF  55				PUSH	EBP
+ 00000100  8B EC			MOV		EBP, ESP
+ 00000102  56				PUSH	ESI
+ 00000103  51				PUSH	ECX
+ 00000104  52				PUSH	EDX
 
- 00000100			_sort:
- 00000100  BA 00000000			mov		EDX,0				; if elements are swapped. intial set edx to zero
- 00000105  8B 75 08			MOV		ESI, [EBP + 8]
- 00000108  B9 000000C8			mov		ECX, ARRAYSIZE
- 0000010D  49				DEC		ecx
+ 00000105			_sort:
+ 00000105  BA 00000000			mov		EDX,0				; if elements are swapped. intial set edx to zero
+ 0000010A  8B 75 08			MOV		ESI, [EBP + 8]
+ 0000010D  B9 000000C8			mov		ECX, ARRAYSIZE
+ 00000112  49				DEC		ecx
 
 				; inner loop
- 0000010E			_swap:
- 0000010E  8B 06			MOV		EAX, [ESI]
- 00000110  3B 46 04			cmp		eax, [esi + 4]
- 00000113  7E 0B			jle		_noSwap
+ 00000113			_swap:
+ 00000113  8B 06			MOV		EAX, [ESI]
+ 00000115  3B 46 04			cmp		eax, [esi + 4]
+ 00000118  7E 0B			jle		_noSwap
 
 					; push array to stack as reference parameters for exchangeElements
- 00000115  56				PUSH	ESI
- 00000116  E8 00000016			CALL	exchangeElements	; call exchangeElements
- 0000011B  BA 00000001			MOV		EDX, 1				; sets edx to 1 when exchange made
+ 0000011A  56				PUSH	ESI
+ 0000011B  E8 00000016			CALL	exchangeElements	; call exchangeElements
+ 00000120  BA 00000001			MOV		EDX, 1				; sets edx to 1 when exchange made
 
 				; if no exchange, decrease LOOP counter
- 00000120			_noSwap:
- 00000120  83 C6 04			add		ESI, 4
- 00000123  E2 E9			LOOP	_swap
+ 00000125			_noSwap:
+ 00000125  83 C6 04			add		ESI, 4
+ 00000128  E2 E9			LOOP	_swap
 
 					; if there was a swap/exchange, return to start loop again
- 00000125  83 FA 01			cmp		edx, 1
- 00000128  74 D6			JE		_sort
+ 0000012A  83 FA 01			cmp		edx, 1
+ 0000012D  74 D6			JE		_sort
 
 					; pop registers from stack and return
- 0000012A  5A				POP		EDX
- 0000012B  59				POP		ECX
- 0000012C  5E				POP		esi
- 0000012D  5D				pop		ebp
- 0000012E  C2 0004			ret		4
+ 0000012F  5A				POP		EDX
+ 00000130  59				POP		ECX
+ 00000131  5E				POP		esi
+ 00000132  5D				pop		ebp
+ 00000133  C2 0004			ret		4
 
- 00000131			sortList ENDP
+ 00000136			sortList ENDP
 
 				;-------------------------------------------
 				; Name: exchangeElements
@@ -411,23 +410,23 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				; Returns: randArray by reference, with values exchanged in two positions
 				;
 				;-------------------------------------------
- 00000131			exchangeElements PROC
+ 00000136			exchangeElements PROC
 					; push register to stack
- 00000131  55				PUSH	EBP
+ 00000136  55				PUSH	EBP
 
 					; swap elements at two positions
- 00000132  8B EC			MOV		ebp, esp
- 00000134  8B 75 08			mov		esi, [ebp+8]
- 00000137  8B 06			mov		eax, [esi]
- 00000139  8B 5E 04			mov		ebx, [esi+4]
- 0000013C  89 46 04			mov		[esi+4], eax
- 0000013F  89 1E			mov		[esi], ebx
+ 00000137  8B EC			MOV		ebp, esp
+ 00000139  8B 75 08			mov		esi, [ebp+8]
+ 0000013C  8B 06			mov		eax, [esi]
+ 0000013E  8B 5E 04			mov		ebx, [esi+4]
+ 00000141  89 46 04			mov		[esi+4], eax
+ 00000144  89 1E			mov		[esi], ebx
 
 					; pop register and return
- 00000141  5D				pop		ebp
- 00000142  C2 0004			ret		4
+ 00000146  5D				pop		ebp
+ 00000147  C2 0004			ret		4
 
- 00000145			exchangeElements ENDP
+ 0000014A			exchangeElements ENDP
 
 				;--------------------------------------------
 				; Name: displayMedian
@@ -441,71 +440,71 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				; Postconditions: NONE
 				;
-				; Receives: randArray and median  by reference
+				; Receives: randArray and median variable by reference
 				;
 				; Returns: Nothing.
 				;
 				;--------------------------------------------
 
- 00000145			displayMedian PROC
+ 0000014A			displayMedian PROC
 					; push registers to stack
- 00000145  55				push	ebp
- 00000146  8B EC			mov		ebp, esp
- 00000148  56				push	esi
- 00000149  50				push	eax
- 0000014A  53				push	ebx
- 0000014B  52				push	edx
- 0000014C  8B 75 0C			mov		esi, [ebp+12]
+ 0000014A  55				push	ebp
+ 0000014B  8B EC			mov		ebp, esp
+ 0000014D  56				push	esi
+ 0000014E  50				push	eax
+ 0000014F  53				push	ebx
+ 00000150  52				push	edx
+ 00000151  8B 75 0C			mov		esi, [ebp+12]
 
 					; check ARRAYSIZE to see if it even or odd
- 0000014F  B8 000000C8			MOV		eax, ARRAYSIZE
- 00000154  BB 00000002			mov		ebx, 2
- 00000159  99				cdq
- 0000015A  F7 F3			div		ebx
- 0000015C  83 FA 00			cmp		edx, 0
- 0000015F  74 08			je		_even
+ 00000154  B8 000000C8			MOV		eax, ARRAYSIZE
+ 00000159  BB 00000002			mov		ebx, 2
+ 0000015E  99				cdq
+ 0000015F  F7 F3			div		ebx
+ 00000161  83 FA 00			cmp		edx, 0
+ 00000164  74 08			je		_even
 
 					; if ARRAYSIZE is odd, then the middle element is the median
- 00000161  8B 55 08			mov		edx, [ebp+8]
- 00000164  8B 46 64			mov		eax, [esi + ((ARRAYSIZE + 1)/2)]
- 00000167  EB 1F			jmp		_median
+ 00000166  8B 55 08			mov		edx, [ebp+8]
+ 00000169  8B 46 64			mov		eax, [esi + ((ARRAYSIZE + 1)/2)]
+ 0000016C  EB 1F			jmp		_median
 
 				;if ARRAYSIZE is even, then two middle elements are added, divided by two, and rounded up if necessary	
- 00000169			_even:
- 00000169  8B 86 00000190		mov		eax, [esi + 4 * ARRAYSIZE / 2]			; stores middle element
- 0000016F  8B 9E 00000194		mov		ebx, [esi + (4 * ARRAYSIZE / 2) + 4]	; stores middle element + 1
- 00000175  03 C3			add		eax, ebx
- 00000177  BB 00000002			mov		ebx, 2
- 0000017C  99				cdq
- 0000017D  F7 F3			div		ebx
- 0000017F  83 FA 01			cmp		edx, 1
- 00000182  75 01			jne		_noRounding
- 00000184  40				inc		eax
+ 0000016E			_even:
+ 0000016E  8B 86 00000190		mov		eax, [esi + 4 * ARRAYSIZE / 2]			; stores middle element
+ 00000174  8B 9E 00000194		mov		ebx, [esi + (4 * ARRAYSIZE / 2) + 4]	; stores middle element + 1
+ 0000017A  03 C3			add		eax, ebx
+ 0000017C  BB 00000002			mov		ebx, 2
+ 00000181  99				cdq
+ 00000182  F7 F3			div		ebx
+ 00000184  83 FA 01			cmp		edx, 1
+ 00000187  75 01			jne		_noRounding
+ 00000189  40				inc		eax
 
 				; if result of division is a remainder of 1 in EDX, then round up for median
- 00000185			_noRounding:
- 00000185  8B 55 08			mov		edx, [ebp + 8]
+ 0000018A			_noRounding:
+ 0000018A  8B 55 08			mov		edx, [ebp + 8]
 
 				; once median is found, print to terminal
- 00000188			_median:
- 00000188  E8 00000000 E		call	WriteString
- 0000018D  E8 00000000 E		call	WriteDec
- 00000192  E8 00000000 E		CALL	CrLf
- 00000197  E8 00000000 E		call	CrLf
-	
+ 0000018D			_median:
+ 0000018D  E8 00000000 E		call	WriteString
+ 00000192  E8 00000000 E		call	WriteDec
+ 00000197  E8 00000000 E		CALL	CrLf
+ 0000019C  E8 00000000 E		call	CrLf
+					
 					; pop registers from stack and return
- 0000019C  5A				POP		edx
- 0000019D  5B				pop		ebx
- 0000019E  58				pop		eax
- 0000019F  5E				pop		esi
- 000001A0  5D				pop		ebp
- 000001A1  C2 0008			ret		8
+ 000001A1  5A				POP		edx
+ 000001A2  5B				pop		ebx
+ 000001A3  58				pop		eax
+ 000001A4  5E				pop		esi
+ 000001A5  5D				pop		ebp
+ 000001A6  C2 0008			ret		8
 					
 					
 
 
 
- 000001A4			displayMedian ENDP
+ 000001A9			displayMedian ENDP
 
 				;---------------------------------------------
 				; Name: displayList
@@ -523,50 +522,54 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				;---------------------------------------------
 
- 000001A4			displayList PROC
- 000001A4  55				PUSH	EBP
- 000001A5  8B EC			MOV		EBP, ESP
- 000001A7  50				PUSH	EAX
- 000001A8  53				push	ebx
- 000001A9  51				push	ecx
- 000001AA  52				push	edx
- 000001AB  56				push	esi
+ 000001A9			displayList PROC
+					; push registers onto stack
+ 000001A9  55				PUSH	EBP
+ 000001AA  8B EC			MOV		EBP, ESP
+ 000001AC  50				PUSH	EAX
+ 000001AD  53				push	ebx
+ 000001AE  51				push	ecx
+ 000001AF  52				push	edx
+ 000001B0  56				push	esi
 
- 000001AC  BB 00000000			MOV		EBX, 0
- 000001B1  8B 75 10			MOV		ESI, [EBP + 16]
- 000001B4  8B 55 08			MOV		EDX, [EBP + 8]
- 000001B7  8B 4D 14			MOV		ecx, [ebp + 20]
+ 000001B1  BB 00000000			MOV		EBX, 0
+ 000001B6  8B 75 10			MOV		ESI, [EBP + 16]
+ 000001B9  8B 55 08			MOV		EDX, [EBP + 8]
+ 000001BC  8B 4D 14			MOV		ecx, [ebp + 20]
 
- 000001BA  E8 00000000 E		CALL	WriteString
- 000001BF  E8 00000000 E		CALL	CrLf
- 000001C4  E8 00000000 E		call	CrLf
- 000001C9  8B 55 0C			mov		edx, [EBP + 12]
+ 000001BF  E8 00000000 E		CALL	WriteString
+ 000001C4  E8 00000000 E		CALL	CrLf
+ 000001C9  E8 00000000 E		call	CrLf
+ 000001CE  8B 55 0C			mov		edx, [EBP + 12]
 
- 000001CC			_display:
- 000001CC  8B 06			mov		eax, [esi]
- 000001CE  E8 00000000 E		call	WriteDec
- 000001D3  E8 00000000 E		CALL	WriteString
- 000001D8  83 C6 04			ADD		ESI, 4
- 000001DB  43				INC		EBX
- 000001DC  83 FB 14			cmp		EBX, 20			; check to see if there are 20 numbers in row
- 000001DF  7C 0A			JL		_continue
- 000001E1  E8 00000000 E		CALL	crlf
- 000001E6  BB 00000000			mov		EBX, 0
+				; loop through array and display each element
+ 000001D1			_display:
+ 000001D1  8B 06			mov		eax, [esi]
+ 000001D3  E8 00000000 E		call	WriteDec
+ 000001D8  E8 00000000 E		CALL	WriteString
+ 000001DD  83 C6 04			ADD		ESI, 4
+ 000001E0  43				INC		EBX
+ 000001E1  83 FB 14			cmp		EBX, 20			; check to see if there are 20 numbers in row
+ 000001E4  7C 0A			JL		_continue
+ 000001E6  E8 00000000 E		CALL	crlf
+ 000001EB  BB 00000000			mov		EBX, 0
 
 				; no new line, so it will continue to print out elements of array
- 000001EB			_continue:
- 000001EB  E2 DF			LOOP	_display
+ 000001F0			_continue:
+ 000001F0  E2 DF			LOOP	_display
 
- 000001ED  E8 00000000 E		call	CrLf
- 000001F2  5E				pop		ESI
- 000001F3  5A				pop		EDX
- 000001F4  59				pop		ecx
- 000001F5  5B				pop		EBX
- 000001F6  58				pop		eax
- 000001F7  5D				pop		ebp
- 000001F8  C2 0010			ret		16
+ 000001F2  E8 00000000 E		call	CrLf
 
- 000001FB			displayList ENDP
+					; pop registers off stack
+ 000001F7  5E				pop		ESI
+ 000001F8  5A				pop		EDX
+ 000001F9  59				pop		ecx
+ 000001FA  5B				pop		EBX
+ 000001FB  58				pop		eax
+ 000001FC  5D				pop		ebp
+ 000001FD  C2 0010			ret		16
+
+ 00000200			displayList ENDP
 
 				;-------------------------------------------
 				; Name: countList
@@ -578,54 +581,57 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				; Postconditions: None
 				;
-				; Receives: randArray 
+				; Receives: randArray and counts array (blank for now) by reference
 				;
-				; Returns: counts array
+				; Returns: counts array with count of instance per number in original randArray
 				;
 				;-------------------------------------------
- 000001FB			countList PROC
+ 00000200			countList PROC
 
- 000001FB  55				push	ebp
- 000001FC  8B EC			mov		ebp, esp
- 000001FE  56				push	esi
- 000001FF  57				push	edi
- 00000200  50				push	eax
- 00000201  53				push	ebx
- 00000202  51				push	ecx
+					; push registers onto stack
+ 00000200  55				push	ebp
+ 00000201  8B EC			mov		ebp, esp
+ 00000203  56				push	esi
+ 00000204  57				push	edi
+ 00000205  50				push	eax
+ 00000206  53				push	ebx
+ 00000207  51				push	ecx
 
- 00000203  8B 75 08			mov		esi, [ebp + 8]		;randArray	
- 00000206  8B 7D 0C			mov		edi, [ebp + 12]		; counts array
- 00000209  BB 0000000F			mov		ebx, LO
- 0000020E  B9 000000C8			mov		ECX, ARRAYSIZE
+ 00000208  8B 75 08			mov		esi, [ebp + 8]		; randArray	
+ 0000020B  8B 7D 0C			mov		edi, [ebp + 12]		; counts array
+ 0000020E  BB 0000000F			mov		ebx, LO
+ 00000213  B9 000000C8			mov		ECX, ARRAYSIZE
 
- 00000213			_countInstance:
-					
- 00000213  8B 06			mov		eax, [esi]
- 00000215  83 C6 04			add		esi, 4
- 00000218  3B C3			cmp		eax, ebx
- 0000021A  75 06			JNE		_noMatching
- 0000021C  FF 07			inc		DWORD PTR [EDI]
- 0000021E  8B 17			MOV		edx, [edi]
- 00000220  EB 06			jmp		_match
+				; loop through randArray and count each element, increment for each instance found
+ 00000218			_countInstance:
+ 00000218  8B 06			mov		eax, [esi]
+ 0000021A  83 C6 04			add		esi, 4
+ 0000021D  3B C3			cmp		eax, ebx
+ 0000021F  75 06			JNE		_noMatching
+ 00000221  FF 07			inc		DWORD PTR [EDI]
+ 00000223  8B 17			MOV		edx, [edi]
+ 00000225  EB 06			jmp		_match
 
- 00000222			_noMatching:
- 00000222  83 C7 04			add		edi, 4
- 00000225  FF 07			inc		DWORD PTR [EDI]
- 00000227  43				inc		EBX
+				; if there is no match, move to next number, then go to _match to loop countInstance
+ 00000227			_noMatching:
+ 00000227  83 C7 04			add		edi, 4
+ 0000022A  FF 07			inc		DWORD PTR [EDI]
+ 0000022C  43				inc		EBX
 
- 00000228			_match:
- 00000228  E2 E9			LOOP	_countInstance
+				; if a match is found, loop countInstance
+ 0000022D			_match:
+ 0000022D  E2 E9			LOOP	_countInstance
 
+					; pop registers off stack and return
+ 0000022F  59				pop		ecx
+ 00000230  5B				pop		ebx
+ 00000231  58				pop		eax
+ 00000232  5F				pop		edi
+ 00000233  5E				pop		esi
+ 00000234  5D				pop		ebp
+ 00000235  C2 0008			ret		8
 
- 0000022A  59				pop		ecx
- 0000022B  5B				pop		ebx
- 0000022C  58				pop		eax
- 0000022D  5F				pop		edi
- 0000022E  5E				pop		esi
- 0000022F  5D				pop		ebp
- 00000230  C2 0008			ret		8
-
- 00000233			countList ENDP
+ 00000238			countList ENDP
 
 				;-------------------------------------------
 				; Name: outroMessage
@@ -642,29 +648,29 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
 				;
 				;-------------------------------------------
 
- 00000233			outroMessage PROC
+ 00000238			outroMessage PROC
 					; push registers to stack
- 00000233  55				push	ebp
- 00000234  8B EC			mov		ebp, esp
- 00000236  52				push	edx
- 00000237  8B 55 08			mov		edx, [ebp + 8]
+ 00000238  55				push	ebp
+ 00000239  8B EC			mov		ebp, esp
+ 0000023B  52				push	edx
+ 0000023C  8B 55 08			mov		edx, [ebp + 8]
 
 					; print outro message to screen
- 0000023A  E8 00000000 E		call	CrLf
- 0000023F  E8 00000000 E		call	WriteString
- 00000244  E8 00000000 E		call	CrLf
+ 0000023F  E8 00000000 E		call	CrLf
+ 00000244  E8 00000000 E		call	WriteString
+ 00000249  E8 00000000 E		call	CrLf
 
 					; pop registers and return
- 00000249  5A				pop		edx
- 0000024A  5D				pop		ebp
- 0000024B  C2 0004			ret		4
+ 0000024E  5A				pop		edx
+ 0000024F  5D				pop		ebp
+ 00000250  C2 0004			ret		4
 
 
- 0000024E			outroMessage ENDP
+ 00000253			outroMessage ENDP
 
 				END main
-Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 12:47:31
-!Project5     (Proj5_zamoraab.asm			     Symbols 2 - 1
+Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/05/23 13:43:40
+*Project5_zamoraab     (Proj5_zamoraab.asm		     Symbols 2 - 1
 
 
 
@@ -757,8 +763,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 00000631 Para	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 0000024E Para	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 0000061E Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000253 Para	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -865,29 +871,29 @@ WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External
 WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-countList  . . . . . . . . . . .	P Near	 000001FB _TEXT	Length= 00000038 Public STDCALL
-  _countInstance . . . . . . . .	L Near	 00000213 _TEXT	
-  _noMatching  . . . . . . . . .	L Near	 00000222 _TEXT	
-  _match . . . . . . . . . . . .	L Near	 00000228 _TEXT	
-displayList  . . . . . . . . . .	P Near	 000001A4 _TEXT	Length= 00000057 Public STDCALL
-  _display . . . . . . . . . . .	L Near	 000001CC _TEXT	
-  _continue  . . . . . . . . . .	L Near	 000001EB _TEXT	
-displayMedian  . . . . . . . . .	P Near	 00000145 _TEXT	Length= 0000005F Public STDCALL
-  _even  . . . . . . . . . . . .	L Near	 00000169 _TEXT	
-  _noRounding  . . . . . . . . .	L Near	 00000185 _TEXT	
-  _median  . . . . . . . . . . .	L Near	 00000188 _TEXT	
-exchangeElements . . . . . . . .	P Near	 00000131 _TEXT	Length= 00000014 Public STDCALL
-fillArray  . . . . . . . . . . .	P Near	 000000CD _TEXT	Length= 0000002D Public STDCALL
-  _fill  . . . . . . . . . . . .	L Near	 000000DB _TEXT	
-introduction . . . . . . . . . .	P Near	 000000A5 _TEXT	Length= 00000028 Public STDCALL
+countList  . . . . . . . . . . .	P Near	 00000200 _TEXT	Length= 00000038 Public STDCALL
+  _countInstance . . . . . . . .	L Near	 00000218 _TEXT	
+  _noMatching  . . . . . . . . .	L Near	 00000227 _TEXT	
+  _match . . . . . . . . . . . .	L Near	 0000022D _TEXT	
+displayList  . . . . . . . . . .	P Near	 000001A9 _TEXT	Length= 00000057 Public STDCALL
+  _display . . . . . . . . . . .	L Near	 000001D1 _TEXT	
+  _continue  . . . . . . . . . .	L Near	 000001F0 _TEXT	
+displayMedian  . . . . . . . . .	P Near	 0000014A _TEXT	Length= 0000005F Public STDCALL
+  _even  . . . . . . . . . . . .	L Near	 0000016E _TEXT	
+  _noRounding  . . . . . . . . .	L Near	 0000018A _TEXT	
+  _median  . . . . . . . . . . .	L Near	 0000018D _TEXT	
+exchangeElements . . . . . . . .	P Near	 00000136 _TEXT	Length= 00000014 Public STDCALL
+fillArray  . . . . . . . . . . .	P Near	 000000D2 _TEXT	Length= 0000002D Public STDCALL
+  _fill  . . . . . . . . . . . .	L Near	 000000E0 _TEXT	
+introduction . . . . . . . . . .	P Near	 000000A5 _TEXT	Length= 0000002D Public STDCALL
 main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 000000A5 Public STDCALL
-outroMessage . . . . . . . . . .	P Near	 00000233 _TEXT	Length= 0000001B Public STDCALL
+outroMessage . . . . . . . . . .	P Near	 00000238 _TEXT	Length= 0000001B Public STDCALL
 printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
-sortList . . . . . . . . . . . .	P Near	 000000FA _TEXT	Length= 00000037 Public STDCALL
-  _sort  . . . . . . . . . . . .	L Near	 00000100 _TEXT	
-  _swap  . . . . . . . . . . . .	L Near	 0000010E _TEXT	
-  _noSwap  . . . . . . . . . . .	L Near	 00000120 _TEXT	
+sortList . . . . . . . . . . . .	P Near	 000000FF _TEXT	Length= 00000037 Public STDCALL
+  _sort  . . . . . . . . . . . .	L Near	 00000105 _TEXT	
+  _swap  . . . . . . . . . . . .	L Near	 00000113 _TEXT	
+  _noSwap  . . . . . . . . . . .	L Near	 00000125 _TEXT	
 wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 
 
@@ -1107,17 +1113,17 @@ VK_UP  . . . . . . . . . . . . .	Number	 00000026h
 WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h   
 WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
 WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
-array  . . . . . . . . . . . . .	DWord	 00000629 _DATA	
+array  . . . . . . . . . . . . .	DWord	 00000616 _DATA	
 black  . . . . . . . . . . . . .	Number	 00000000h   
 blue . . . . . . . . . . . . . .	Number	 00000001h   
 brown  . . . . . . . . . . . . .	Number	 00000006h   
-countsLen  . . . . . . . . . . .	DWord	 0000062D _DATA	
-counts . . . . . . . . . . . . .	DWord	 00000599 _DATA	
+countsLen  . . . . . . . . . . .	DWord	 0000061A _DATA	
+counts . . . . . . . . . . . . .	DWord	 00000586 _DATA	
 cyan . . . . . . . . . . . . . .	Number	 00000003h   
 exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
 gray . . . . . . . . . . . . . .	Number	 00000008h   
 green  . . . . . . . . . . . . .	Number	 00000002h   
-instance . . . . . . . . . . . .	Byte	 000001F4 _DATA	
+instance . . . . . . . . . . . .	Byte	 000001E6 _DATA	
 lightBlue  . . . . . . . . . . .	Number	 00000009h   
 lightCyan  . . . . . . . . . . .	Number	 0000000Bh   
 lightGray  . . . . . . . . . . .	Number	 00000007h   
@@ -1125,15 +1131,15 @@ lightGreen . . . . . . . . . . .	Number	 0000000Ah
 lightMagenta . . . . . . . . . .	Number	 0000000Dh   
 lightRed . . . . . . . . . . . .	Number	 0000000Ch   
 magenta  . . . . . . . . . . . .	Number	 00000005h   
-median . . . . . . . . . . . . .	Byte	 000001B4 _DATA	
-outro  . . . . . . . . . . . . .	Byte	 0000024B _DATA	
-progDesc . . . . . . . . . . . .	Byte	 00000052 _DATA	
+median . . . . . . . . . . . . .	Byte	 000001AA _DATA	
+outro  . . . . . . . . . . . . .	Byte	 00000239 _DATA	
+progDesc . . . . . . . . . . . .	Byte	 00000050 _DATA	
 progName . . . . . . . . . . . .	Byte	 00000000 _DATA	
-randArray  . . . . . . . . . . .	DWord	 00000279 _DATA	
+randArray  . . . . . . . . . . .	DWord	 00000266 _DATA	
 red  . . . . . . . . . . . . . .	Number	 00000004h   
-sortNum  . . . . . . . . . . . .	Byte	 000001D8 _DATA	
-spacing  . . . . . . . . . . . .	Byte	 00000275 _DATA	
-unsortNo . . . . . . . . . . . .	Byte	 00000196 _DATA	
+sortNum  . . . . . . . . . . . .	Byte	 000001CA _DATA	
+spacing  . . . . . . . . . . . .	Byte	 00000263 _DATA	
+unsortNo . . . . . . . . . . . .	Byte	 0000018C _DATA	
 white  . . . . . . . . . . . . .	Number	 0000000Fh   
 wsprintf . . . . . . . . . . . .	Text   	 wsprintfA
 yellow . . . . . . . . . . . . .	Number	 0000000Eh   
