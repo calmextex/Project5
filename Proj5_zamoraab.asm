@@ -58,7 +58,7 @@ main PROC
 	call sortList
 	;call exchangeElements
 	;call displayMedian
-	;call displayList
+	;call displayList 
 	;call countList
 
 	Invoke ExitProcess,0	; exit to operating system
