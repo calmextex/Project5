@@ -1,16 +1,15 @@
-Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/04/23 18:07:46
-#Program Template     (template.asm			     Page 1 - 1
+Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/04/23 19:08:20
+<Project 5 - Arrays, Addressing, and Stack-Passed Parameters  Page 1 - 1
 
 
-				TITLE Program Template     (template.asm)
+				TITLE Project 5 - Arrays, Addressing, and Stack-Passed Parameters     (Proj5_zamoraab.asm)
 
-				; Author: 
-				; Last Modified:
-				; OSU email address: ONID_ID@oregonstate.edu
-				; Course number/section:   CS271 Section ???
-				; Project Number:                 Due Date:
-				; Description: This file is provided as a template from which you may work
-				;              when developing assembly projects in CS271.
+				; Author: Abraham Zamora
+				; Last Modified: 3/4/2026
+				; OSU email address: zamoraab@oregonstate.edu
+				; Course number/section:   CS271 Section 400
+				; Project Number:                 Due Date: 3/5/2023
+				; Description:
 
 				INCLUDE Irvine32.inc
 			      C ; Include file for Irvine32.lib             (Irvine32.inc)
@@ -191,129 +190,202 @@ Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/04/23 18:07:46
  00000000			main PROC
 
  00000000  E8 00000000 E		call Randomize
+
  00000005  68 00000000 R		PUSH OFFSET progName
  0000000A  68 00000052 R		PUSH OFFSET	progDesc
- 0000000F  E8 0000002B			call introduction
+ 0000000F  E8 0000003A			call introduction
 
  00000014  68 00000274 R		PUSH OFFSET	randArray
- 00000019  E8 00000044			call fillArray
+ 00000019  E8 00000053			call fillArray
+
 
  0000001E  FF 35 00000624 R		PUSH array
  00000024  68 00000274 R		PUSH OFFSET randArray
  00000029  68 00000628 R		PUSH OFFSET	tabInd
  0000002E  68 00000196 R		PUSH OFFSET unsortNo
+ 00000033  E8 000000BB			CALL displayList
+ 00000038  E8 00000000 E		call CrLf
 
- 00000033  E8 00000057			CALL displayList
-
+					
+					;PUSH OFFSET randArray
 					;call sortList
-					;call exchangeElements
+
+					;PUSH OFFSET randArray
+					;PUSH OFFSET median
 					;call displayMedian
+
 					;call displayList 
 					;call countList
+ 0000003D  68 0000024A R		push OFFSET	outro
+ 00000042  E8 000000F9			CALL outroMessage
 
 					Invoke ExitProcess,0	; exit to operating system
- 00000038  6A 00	   *	    push   +000000000h
- 0000003A  E8 00000000 E   *	    call   ExitProcess
- 0000003F			main ENDP
+ 00000047  6A 00	   *	    push   +000000000h
+ 00000049  E8 00000000 E   *	    call   ExitProcess
+ 0000004E			main ENDP
 
 				; (insert additional procedures here)
- 0000003F			introduction PROC
- 0000003F  55				PUSH	EBP
- 00000040  8B EC			MOV		EBP, ESP
- 00000042  52				PUSH	EDX
- 00000043  8B 55 0C			MOV		EDX, [EBP+12]
- 00000046  E8 00000000 E		CALL	WriteString
- 0000004B  E8 00000000 E		CALL	CrLF
- 00000050  8B 55 08			MOV		EDX, [EBP+8]
- 00000053  E8 00000000 E		CALL	WriteString
- 00000058  E8 00000000 E		CALL	CrLf
- 0000005D  5A				POP		EDX
- 0000005E  5D				POP		EBP
- 0000005F  C2 0008			RET		8
+ 0000004E			introduction PROC
+ 0000004E  55				PUSH	EBP
+ 0000004F  8B EC			MOV		EBP, ESP
+ 00000051  52				PUSH	EDX
+ 00000052  8B 55 0C			MOV		EDX, [EBP+12]
+ 00000055  E8 00000000 E		CALL	WriteString
+ 0000005A  E8 00000000 E		CALL	CrLF
+ 0000005F  8B 55 08			MOV		EDX, [EBP+8]
+ 00000062  E8 00000000 E		CALL	WriteString
+ 00000067  E8 00000000 E		CALL	CrLf
+ 0000006C  5A				POP		EDX
+ 0000006D  5D				POP		EBP
+ 0000006E  C2 0008			RET		8
 
- 00000062			introduction ENDP
+ 00000071			introduction ENDP
 
- 00000062			fillArray PROC
- 00000062  55				PUSH	EBP
- 00000063  8B EC			MOV		EBP, ESP
- 00000065  50				PUSH	EAX
- 00000066  51				PUSH	ECX
- 00000067  57				PUSH	EDI
- 00000068  B9 000000C8			MOV		ECX, ARRAYSIZE
- 0000006D  8B 7D 08			MOV		EDI, [EBP+8]
- 00000070			_fill:
- 00000070  B8 00000032			MOV		EAX, HI
- 00000075  83 E8 0F			SUB		EAX, LO
- 00000078  40				INC		EAX
- 00000079  E8 00000000 E		CALL	RandomRange
- 0000007E  83 C0 0F			ADD		EAX, LO
- 00000081  89 07			MOV		[EDI], EAX
- 00000083  83 C7 04			ADD		EDI, 4
- 00000086  E2 E8			loop	_fill
+ 00000071			fillArray PROC
+ 00000071  55				PUSH	EBP
+ 00000072  8B EC			MOV		EBP, ESP
+ 00000074  50				PUSH	EAX
+ 00000075  51				PUSH	ECX
+ 00000076  57				PUSH	EDI
+ 00000077  B9 000000C8			MOV		ECX, ARRAYSIZE
+ 0000007C  8B 7D 08			MOV		EDI, [EBP+8]
+ 0000007F			_fill:
+ 0000007F  B8 00000032			MOV		EAX, HI
+ 00000084  83 E8 0F			SUB		EAX, LO
+ 00000087  40				INC		EAX
+ 00000088  E8 00000000 E		CALL	RandomRange
+ 0000008D  83 C0 0F			ADD		EAX, LO
+ 00000090  89 07			MOV		[EDI], EAX
+ 00000092  83 C7 04			ADD		EDI, 4
+ 00000095  E2 E8			loop	_fill
 
- 00000088  5F				POP		EDI
- 00000089  59				POP		ECX
- 0000008A  58				POP		EAX
- 0000008B  5D				POP		EBP
- 0000008C  C2 0004			RET		4
+ 00000097  5F				POP		EDI
+ 00000098  59				POP		ECX
+ 00000099  58				POP		EAX
+ 0000009A  5D				POP		EBP
+ 0000009B  C2 0004			RET		4
 
- 0000008F			fillArray ENDP
+ 0000009E			fillArray ENDP
 
- 0000008F			sortList PROC
+ 0000009E			sortList PROC
+ 0000009E  55				PUSH	EBP
+ 0000009F  8B EC			MOV		EBP, ESP
+ 000000A1  56				PUSH	ESI
+ 000000A2  51				PUSH	ECX
+ 000000A3  52				PUSH	EDX
 
- 0000008F			sortList ENDP
+ 000000A4			_sort:
+ 000000A4  BA 00000000			mov		EDX,0
+ 000000A9  8B 75 08			MOV		ESI,[EBP+8]
+ 000000AC  B9 000000C8			mov		ECX, ARRAYSIZE
+ 000000B1  49				DEC		ecx
+ 000000B2			_swap:
+ 000000B2  8B 06			MOV		EAX, [ESI]
+ 000000B4  3B 46 04			cmp		eax, [esi+4]
+ 000000B7  7E 0B			jle		_noSwap
+ 000000B9  56				PUSH	ESI
+ 000000BA  E8 00000016			CALL	exchangeElements
+ 000000BF  BA 00000001			MOV		EDX, 1
 
- 0000008F			exchangeElements PROC
- 0000008F			exchangeElements ENDP
+ 000000C4			_noSwap:
+ 000000C4  83 C6 04			add		ESI, 4
+ 000000C7  E2 E9			LOOP	_swap
 
- 0000008F			displayMedian PROC
- 0000008F			displayMedian ENDP
+ 000000C9  83 FA 01			cmp		edx, 1
+ 000000CC  74 D6			JE		_sort
 
- 0000008F			displayList PROC
- 0000008F  55				PUSH	EBP
- 00000090  8B EC			MOV		EBP,ESP
- 00000092  50				PUSH	EAX
- 00000093  51				push	ecx
- 00000094  52				push	edx
- 00000095  56				push	esi
- 00000096  BB 00000000			MOV		EBX, 0
- 0000009B  8B 75 10			MOV		ESI, [EBP+16]
- 0000009E  8B 55 08			MOV		EDX, [EBP+8]
- 000000A1  8B 4D 14			MOV		ecx, [ebp+20]
- 000000A4  E8 00000000 E		CALL	WriteString
- 000000A9  E8 00000000 E		CALL	CrLf
- 000000AE  8B 55 0C			mov		edx, [EBP+12]
+ 000000CE  5A				POP		EDX
+ 000000CF  59				POP		ECX
+ 000000D0  5E				POP		esi
+ 000000D1  5D				pop		ebp
+ 000000D2  C2 0004			ret		4
 
- 000000B1			_display:
- 000000B1  8B 06			mov		eax,[esi]
- 000000B3  E8 00000000 E		call	WriteDec
- 000000B8  E8 00000000 E		CALL	WriteString
- 000000BD  83 C6 04			ADD		ESI, 4
- 000000C0  43				INC		EBX
- 000000C1  83 FB 14			cmp		EBX, 20
- 000000C4  7C 0A			JL		_continue
- 000000C6  E8 00000000 E		CALL	crlf
- 000000CB  BB 00000000			mov		EBX, 0
- 000000D0			_continue:
- 000000D0  E2 DF			LOOP	_display
+ 000000D5			sortList ENDP
 
- 000000D2  5E				pop		ESI
- 000000D3  5A				pop		EDX
- 000000D4  59				pop		ecx
- 000000D5  5B				pop		EBX
- 000000D6  58				pop		eax
- 000000D7  5D				pop		ebp
- 000000D8  C2 000C			ret		12
+ 000000D5			exchangeElements PROC
 
- 000000DB			displayList ENDP
+ 000000D5  55				PUSH	EBP
+ 000000D6  8B EC			MOV		ebp, esp
+ 000000D8  8B 75 08			mov		esi, [ebp+8]
+ 000000DB  8B 06			mov		eax, [esi]
+ 000000DD  8B 5E 04			mov		ebx, [esi+4]
+ 000000E0  89 46 04			mov		[esi+4], eax
+ 000000E3  89 1E			mov		[esi], ebx
+ 000000E5  5D				pop		ebp
+ 000000E6  C2 0004			ret		4
+ 000000E9			exchangeElements ENDP
 
- 000000DB			countList PROC
- 000000DB			countList ENDP
+ 000000E9			displayMedian PROC
+ 000000E9  55				push	ebp
+ 000000EA  8B EC			mov		ebp, esp
+ 000000EC  56				push	esi
+ 000000ED  50				push	eax
+ 000000EE  53				push	ebx
+ 000000EF  52				push	edx
+ 000000F0  8B 75 0C			mov		esi, [ebp+12]
 
+
+
+ 000000F3			displayMedian ENDP
+
+ 000000F3			displayList PROC
+ 000000F3  55				PUSH	EBP
+ 000000F4  8B EC			MOV		EBP,ESP
+ 000000F6  50				PUSH	EAX
+ 000000F7  53				push	ebx
+ 000000F8  51				push	ecx
+ 000000F9  52				push	edx
+ 000000FA  56				push	esi
+ 000000FB  BB 00000000			MOV		EBX, 0
+ 00000100  8B 75 10			MOV		ESI, [EBP+16]
+ 00000103  8B 55 08			MOV		EDX, [EBP+8]
+ 00000106  8B 4D 14			MOV		ecx, [ebp+20]
+ 00000109  E8 00000000 E		CALL	WriteString
+ 0000010E  E8 00000000 E		CALL	CrLf
+ 00000113  8B 55 0C			mov		edx, [EBP+12]
+
+ 00000116			_display:
+ 00000116  8B 06			mov		eax,[esi]
+ 00000118  E8 00000000 E		call	WriteDec
+ 0000011D  E8 00000000 E		CALL	WriteString
+ 00000122  83 C6 04			ADD		ESI, 4
+ 00000125  43				INC		EBX
+ 00000126  83 FB 14			cmp		EBX, 20
+ 00000129  7C 0A			JL		_continue
+ 0000012B  E8 00000000 E		CALL	crlf
+ 00000130  BB 00000000			mov		EBX, 0
+ 00000135			_continue:
+ 00000135  E2 DF			LOOP	_display
+
+ 00000137  5E				pop		ESI
+ 00000138  5A				pop		EDX
+ 00000139  59				pop		ecx
+ 0000013A  5B				pop		EBX
+ 0000013B  58				pop		eax
+ 0000013C  5D				pop		ebp
+ 0000013D  C2 0010			ret		16
+
+ 00000140			displayList ENDP
+
+ 00000140			countList PROC
+ 00000140			countList ENDP
+
+ 00000140			outroMessage PROC
+ 00000140  55				push	ebp
+ 00000141  8B EC			mov		ebp, esp
+ 00000143  52				push	edx
+ 00000144  8B 55 08			mov		edx, [ebp+8]
+ 00000147  E8 00000000 E		call	WriteString
+ 0000014C  5A				pop		edx
+ 0000014D  5D				pop		ebp
+ 0000014E  C2 0004			ret		4
+
+
+ 00000151			outroMessage ENDP
 
 				END main
-Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/04/23 18:07:46
-#Program Template     (template.asm			     Symbols 2 - 1
+Microsoft (R) Macro Assembler Version 14.29.30147.0	    03/04/23 19:08:20
+<Project 5 - Arrays, Addressing, and Stack-Passed Parameters  Symbols 2 - 1
 
 
 
@@ -407,7 +479,7 @@ Segments and Groups:
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
 _DATA  . . . . . . . . . . . . .	32 Bit	 0000062C Para	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 000000DB Para	  Public  'CODE'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000151 Para	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -514,19 +586,23 @@ WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External
 WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-countList  . . . . . . . . . . .	P Near	 000000DB _TEXT	Length= 00000000 Public STDCALL
-displayList  . . . . . . . . . .	P Near	 0000008F _TEXT	Length= 0000004C Public STDCALL
-  _display . . . . . . . . . . .	L Near	 000000B1 _TEXT	
-  _continue  . . . . . . . . . .	L Near	 000000D0 _TEXT	
-displayMedian  . . . . . . . . .	P Near	 0000008F _TEXT	Length= 00000000 Public STDCALL
-exchangeElements . . . . . . . .	P Near	 0000008F _TEXT	Length= 00000000 Public STDCALL
-fillArray  . . . . . . . . . . .	P Near	 00000062 _TEXT	Length= 0000002D Public STDCALL
-  _fill  . . . . . . . . . . . .	L Near	 00000070 _TEXT	
-introduction . . . . . . . . . .	P Near	 0000003F _TEXT	Length= 00000023 Public STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000003F Public STDCALL
+countList  . . . . . . . . . . .	P Near	 00000140 _TEXT	Length= 00000000 Public STDCALL
+displayList  . . . . . . . . . .	P Near	 000000F3 _TEXT	Length= 0000004D Public STDCALL
+  _display . . . . . . . . . . .	L Near	 00000116 _TEXT	
+  _continue  . . . . . . . . . .	L Near	 00000135 _TEXT	
+displayMedian  . . . . . . . . .	P Near	 000000E9 _TEXT	Length= 0000000A Public STDCALL
+exchangeElements . . . . . . . .	P Near	 000000D5 _TEXT	Length= 00000014 Public STDCALL
+fillArray  . . . . . . . . . . .	P Near	 00000071 _TEXT	Length= 0000002D Public STDCALL
+  _fill  . . . . . . . . . . . .	L Near	 0000007F _TEXT	
+introduction . . . . . . . . . .	P Near	 0000004E _TEXT	Length= 00000023 Public STDCALL
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000004E Public STDCALL
+outroMessage . . . . . . . . . .	P Near	 00000140 _TEXT	Length= 00000011 Public STDCALL
 printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
-sortList . . . . . . . . . . . .	P Near	 0000008F _TEXT	Length= 00000000 Public STDCALL
+sortList . . . . . . . . . . . .	P Near	 0000009E _TEXT	Length= 00000037 Public STDCALL
+  _sort  . . . . . . . . . . . .	L Near	 000000A4 _TEXT	
+  _swap  . . . . . . . . . . . .	L Near	 000000B2 _TEXT	
+  _noSwap  . . . . . . . . . . .	L Near	 000000C4 _TEXT	
 wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 
 

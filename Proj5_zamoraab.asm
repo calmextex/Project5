@@ -1,12 +1,11 @@
-TITLE Program Template     (template.asm)
+TITLE Project 5 - Arrays, Addressing, and Stack-Passed Parameters     (Proj5_zamoraab.asm)
 
-; Author: 
-; Last Modified:
-; OSU email address: ONID_ID@oregonstate.edu
-; Course number/section:   CS271 Section ???
-; Project Number:                 Due Date:
-; Description: This file is provided as a template from which you may work
-;              when developing assembly projects in CS271.
+; Author: Abraham Zamora
+; Last Modified: 3/4/2026
+; OSU email address: zamoraab@oregonstate.edu
+; Course number/section:   CS271 Section 400
+; Project Number:                 Due Date: 3/5/2023
+; Description:
 
 INCLUDE Irvine32.inc
 
@@ -44,6 +43,7 @@ INCLUDE Irvine32.inc
 main PROC
 
 	call Randomize
+
 	PUSH OFFSET progName
 	PUSH OFFSET	progDesc
 	call introduction
@@ -57,16 +57,20 @@ main PROC
 	PUSH OFFSET	tabInd
 	PUSH OFFSET unsortNo
 	CALL displayList
+	call CrLf
 
 	
-	PUSH OFFSET randArray
-	call sortList
+	;PUSH OFFSET randArray
+	;call sortList
 
-
-	;call exchangeElements
+	;PUSH OFFSET randArray
+	;PUSH OFFSET median
 	;call displayMedian
+
 	;call displayList 
 	;call countList
+	push OFFSET	outro
+	CALL outroMessage
 
 	Invoke ExitProcess,0	; exit to operating system
 main ENDP
@@ -163,12 +167,23 @@ exchangeElements PROC
 exchangeElements ENDP
 
 displayMedian PROC
+	push	ebp
+	mov		ebp, esp
+	push	esi
+	push	eax
+	push	ebx
+	push	edx
+	mov		esi, [ebp+12]
+
+
+
 displayMedian ENDP
 
 displayList PROC
 	PUSH	EBP
 	MOV		EBP,ESP
 	PUSH	EAX
+	push	ebx
 	push	ecx
 	push	edx
 	push	esi
@@ -206,5 +221,17 @@ displayList ENDP
 countList PROC
 countList ENDP
 
+outroMessage PROC
+	push	ebp
+	mov		ebp, esp
+	push	edx
+	mov		edx, [ebp+8]
+	call	WriteString
+	pop		edx
+	pop		ebp
+	ret		4
+
+
+outroMessage ENDP
 
 END main
