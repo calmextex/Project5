@@ -14,8 +14,8 @@ INCLUDE Irvine32.inc
 
 ; (insert constant definitions here)
 	ARRAYSIZE = 200
-	LO = 20
-	HI = 30
+	LO = 15
+	HI = 50
 
 
 .data
@@ -35,6 +35,7 @@ INCLUDE Irvine32.inc
 	randArray	DWORD	ARRAYSIZE DUP(?)
 	counts		DWORD	HI-LO+1 DUP(0)
 	array		DWORD	LENGTHOF randArray
+	tabInd		BYTE	"   ",0
 
 
 	
@@ -50,12 +51,18 @@ main PROC
 	PUSH OFFSET	randArray
 	call fillArray
 
+
 	PUSH array
 	PUSH OFFSET randArray
+	PUSH OFFSET	tabInd
 	PUSH OFFSET unsortNo
 	CALL displayList
 
+	
+	PUSH OFFSET randArray
 	call sortList
+
+
 	;call exchangeElements
 	;call displayMedian
 	;call displayList 
@@ -108,10 +115,51 @@ _fill:
 fillArray ENDP
 
 sortList PROC
+	PUSH	EBP
+	MOV		EBP, ESP
+	PUSH	ESI
+	PUSH	ECX
+	PUSH	EDX
+
+_sort:
+	mov		EDX,0
+	MOV		ESI,[EBP+8]
+	mov		ECX, ARRAYSIZE
+	DEC		ecx
+_swap:
+	MOV		EAX, [ESI]
+	cmp		eax, [esi+4]
+	jle		_noSwap
+	PUSH	ESI
+	CALL	exchangeElements
+	MOV		EDX, 1
+
+_noSwap:
+	add		ESI, 4
+	LOOP	_swap
+
+	cmp		edx, 1
+	JE		_sort
+
+	POP		EDX
+	POP		ECX
+	POP		esi
+	pop		ebp
+	ret		4
 
 sortList ENDP
 
 exchangeElements PROC
+
+	PUSH	EBP
+	MOV		ebp, esp
+	mov		esi, [ebp+8]
+	mov		eax, [esi]
+	mov		ebx, [esi+4]
+	mov		[esi+4], eax
+	mov		[esi], ebx
+	pop		ebp
+	ret		4
 exchangeElements ENDP
 
 displayMedian PROC
@@ -126,6 +174,32 @@ displayList PROC
 	push	esi
 	MOV		EBX, 0
 	MOV		ESI, [EBP+16]
+	MOV		EDX, [EBP+8]
+	MOV		ecx, [ebp+20]
+	CALL	WriteString
+	CALL	CrLf
+	mov		edx, [EBP+12]
+
+_display:
+	mov		eax,[esi]
+	call	WriteDec
+	CALL	WriteString
+	ADD		ESI, 4
+	INC		EBX
+	cmp		EBX, 20
+	JL		_continue
+	CALL	crlf
+	mov		EBX, 0
+_continue:
+	LOOP	_display
+
+	pop		ESI
+	pop		EDX
+	pop		ecx
+	pop		EBX
+	pop		eax
+	pop		ebp
+	ret		16
 
 displayList ENDP
 
