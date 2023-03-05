@@ -1,4 +1,4 @@
-TITLE Project 5 - Arrays, Addressing, and Stack-Passed Parameters     (Proj5_zamoraab.asm)
+TITLE Project5     (Proj5_zamoraab.asm)
 
 ; Author: Abraham Zamora
 ; Last Modified: 3/4/2026
@@ -9,7 +9,6 @@ TITLE Project 5 - Arrays, Addressing, and Stack-Passed Parameters     (Proj5_zam
 
 INCLUDE Irvine32.inc
 
-; (insert macro definitions here)
 
 ; (insert constant definitions here)
 	ARRAYSIZE = 200
@@ -60,14 +59,18 @@ main PROC
 	call CrLf
 
 	
-	;PUSH OFFSET randArray
-	;call sortList
+	PUSH OFFSET randArray
+	call sortList
 
-	;PUSH OFFSET randArray
-	;PUSH OFFSET median
-	;call displayMedian
+	PUSH OFFSET randArray
+	PUSH OFFSET median
+	call displayMedian
 
-	;call displayList 
+	PUSH array
+	push offset randArray
+	push offset tabInd
+	push offset sortNum
+	call displayList 
 	;call countList
 	push OFFSET	outro
 	CALL outroMessage
@@ -174,6 +177,49 @@ displayMedian PROC
 	push	ebx
 	push	edx
 	mov		esi, [ebp+12]
+
+	
+	MOV		eax, ARRAYSIZE
+	mov		ebx, 2
+	cdq
+	div		ebx
+	cmp		edx, 0
+	je		_even
+
+	mov		edx, [ebp+8]
+	mov		eax, [esi + ((ARRAYSIZE + 1)/2)]
+	jmp		_median
+
+	
+_even:
+
+	mov		eax, [esi + 4 * ARRAYSIZE / 2]
+	mov		ebx, [esi + (4 * ARRAYSIZE / 2) + 4]
+	add		eax, ebx
+	mov		ebx, 2
+	cdq
+	div		ebx
+	cmp		edx, 1
+	jne		_noRounding
+	inc		eax
+
+_noRounding:
+	mov		edx, [ebp + 8]
+
+_median:
+	call	WriteString
+	call	WriteDec
+	CALL	CrLf
+	call	CrLf
+
+	POP		edx
+	pop		ebx
+	pop		eax
+	pop		esi
+	pop		ebp
+	ret		8
+	
+	
 
 
 
